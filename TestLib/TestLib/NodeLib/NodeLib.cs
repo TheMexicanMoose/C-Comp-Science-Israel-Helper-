@@ -3,36 +3,41 @@ using Unit4.CollectionsLib;
 
 public class NodeLib
 {
-    /// <summary>
-    /// מחליף ערך לפי אינדקס. -1 מחליף את האחרון
-    /// סיבוכיות: O(n)
-    /// </summary>
+    // מחליפה ערך לפי אינדקס. -1 מחליף את האחרון
+    // מקבלת: רשימה מקושרת, אינדקס, ערך חדש
+    // מחזירה/עושה: משנה את הערך במקום
+    // סיבוכיות: O(n)
     public static void Set_By_Index_Node<T>(Node<T> chain, int index, T newValue)
     {
         Node<T> current = chain;
         int count = 0;
+
         while (current != null)
         {
+            // אם הגענו למיקום המבוקש
             if (count == index)
             {
                 current.SetValue(newValue);
                 return;
             }
+
             count++;
+
             // בדיקה מיוחדת אם רוצים את האיבר האחרון
             if (index == -1 && current.GetNext() != null && current.GetNext().GetNext() == null)
             {
                 current.GetNext().SetValue(newValue);
                 return;
             }
-            current = current.GetNext();
+
+            current = current.GetNext(); // מעבר לאיבר הבא
         }
     }
 
-    /// <summary>
-    /// מחזיר ערך לפי אינדקס. -1 מחזיר את האחרון
-    /// סיבוכיות: O(n)
-    /// </summary>
+    // מחזיר ערך לפי אינדקס. -1 מחזיר את האחרון
+    // מקבלת: רשימה מקושרת, אינדקס
+    // מחזירה/עושה: הערך באינדקס או ברירת מחדל אם לא קיים
+    // סיבוכיות: O(n)
     public static T Get_By_Index_Node<T>(Node<T> chain, int index)
     {
         Node<T> current = chain;
@@ -51,14 +56,13 @@ public class NodeLib
             count++;
         }
 
-        // אם האינדקס גדול מהאורך
-        return default(T)!;
+        return default(T)!; // אם האינדקס גדול מהאורך
     }
 
-    /// <summary>
-    /// יוצר רשימה מקושרת ממערך ערכים
-    /// סיבוכיות: O(n)
-    /// </summary>
+    // יוצר רשימה מקושרת ממערך ערכים
+    // מקבלת: מערך של int
+    // מחזירה/עושה: ראש הרשימה המקושרת
+    // סיבוכיות: O(n)
     public static Node<int> CreateList(params int[] values)
     {
         if (values.Length == 0) return null!;
@@ -66,6 +70,7 @@ public class NodeLib
         Node<int> head = new Node<int>(values[0]);
         Node<int> current = head;
 
+        // יצירת שאר האיברים
         for (int i = 1; i < values.Length; i++)
         {
             current.SetNext(new Node<int>(values[i]));
@@ -75,10 +80,10 @@ public class NodeLib
         return head;
     }
 
-    /// <summary>
-    /// מדפיס רשימה מקושרת
-    /// סיבוכיות: O(n)
-    /// </summary>
+    // מדפיס רשימה מקושרת
+    // מקבלת: ראש הרשימה
+    // מחזירה/עושה: מדפיסה למסך את הערכים
+    // סיבוכיות: O(n)
     public static void PrintList<TT>(Node<TT>? q)
     {
         if (q == null)
@@ -86,33 +91,37 @@ public class NodeLib
             Console.WriteLine("רשימה ריקה");
             return;
         }
+
         while (q != null)
         {
-            Console.Write(q.GetValue() + " ");
-            q = q.GetNext();
+            Console.Write(q.GetValue() + " "); // הדפסת הערך הנוכחי
+            q = q.GetNext(); // מעבר לאיבר הבא
         }
+
         Console.WriteLine();
     }
 
-    /// <summary>
-    /// מחזיר אורך הרשימה
-    /// סיבוכיות: O(n)
-    /// </summary>
+    // מחזיר אורך הרשימה
+    // מקבלת: ראש הרשימה
+    // מחזירה/עושה: מספר האיברים ברשימה
+    // סיבוכיות: O(n)
     public static int LengthLst<T>(Node<T> q)
     {
         int count = 0;
+
         while (q != null)
         {
             count++;
-            q = q.GetNext();
+            q = q.GetNext(); // מעבר לאיבר הבא
         }
+
         return count;
     }
 
-    /// <summary>
-    /// הופך את כיוון הרשימה
-    /// סיבוכיות: O(n)
-    /// </summary>
+    // הופך את כיוון הרשימה
+    // מקבלת: ראש הרשימה
+    // מחזירה/עושה: ראש הרשימה אחרי ההיפוך
+    // סיבוכיות: O(n)
     public static Node<TT> Revers<TT>(Node<TT> root)
     {
         Node<TT> prev = null!;
@@ -120,35 +129,38 @@ public class NodeLib
 
         while (current != null)
         {
-            Node<TT> next = current.GetNext();
-            current.SetNext(prev); // הפוך כיוון
-            prev = current;
-            current = next;
+            Node<TT> next = current.GetNext(); // שמירת הבא
+            current.SetNext(prev); // הפיכת הכיוון
+            prev = current; // עדכון prev
+            current = next; // מעבר לאיבר הבא
         }
 
-        return prev; // ראש חדש
+        return prev; // ראש חדש אחרי ההיפוך
     }
 
-    /// <summary>
-    /// בודק אם ערך קיים ברשימה
-    /// סיבוכיות: O(n)
-    /// </summary>
+    // בודק אם ערך קיים ברשימה
+    // מקבלת: ראש הרשימה, ערך לחיפוש
+    // מחזירה/עושה: true אם קיים, אחרת false
+    // סיבוכיות: O(n)
     public static bool IsExistNode<TT>(Node<TT> head, TT value)
     {
         Node<TT> current = head;
+
         while (current != null)
         {
             if (current.GetValue()!.Equals(value))
                 return true;
-            current = current.GetNext();
+
+            current = current.GetNext(); // מעבר לאיבר הבא
         }
+
         return false;
     }
 
-    /// <summary>
-    /// בודק אם שתי רשימות זהות בגודל ובערכים
-    /// סיבוכיות: O(n)
-    /// </summary>
+    // בודק אם שתי רשימות זהות בגודל ובערכים
+    // מקבלת: ראש הרשימה הראשונה, ראש הרשימה השנייה
+    // מחזירה/עושה: true אם שוות, אחרת false
+    // סיבוכיות: O(n)
     public static bool IsEqualLists<TT>(Node<TT> head1, Node<TT> head2)
     {
         Node<TT> current1 = head1;
@@ -163,7 +175,45 @@ public class NodeLib
             current2 = current2.GetNext();
         }
 
-        // אמת אם שתיהן נגמרו יחד
-        return current1 == null && current2 == null;
+        return current1 == null && current2 == null; // אמת אם שתיהן נגמרו יחד
+    }
+
+    // מוסיף ערך במיקום מסוים ברשימה
+    // מקבלת: ראש הרשימה, אינדקס, ערך חדש
+    // מחזירה/עושה: מוסיפה את הערך במקום המבוקש
+    // סיבוכיות: O(n)
+    public static void Insert_To_Index_Node<T>(Node<T> chain, int index, T newValue)
+    {
+        if (index == 0)
+        {
+            Node<T> newNode = new Node<T>(newValue);
+            newNode.SetNext(chain);
+            return;
+        }
+
+        Node<T> current = chain;
+        int count = 0;
+
+        while (current != null)
+        {
+            if (count == index - 1)
+            {
+                Node<T> newNode = new Node<T>(newValue);
+                newNode.SetNext(current.GetNext()); // קישור לערך הבא
+                current.SetNext(newNode); // הכנסת הערך החדש
+                return;
+            }
+
+            count++;
+            current = current.GetNext();
+
+            // הוספה בסוף אם index = -1
+            if (index == -1 && current.GetNext() == null)
+            {
+                Node<T> newNode = new Node<T>(newValue);
+                current.SetNext(newNode);
+                return;
+            }
+        }
     }
 }
