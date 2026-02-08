@@ -1,9 +1,25 @@
 # **C# Computer Science Israel Helper Library**
-this is a library with a ton of functions in C# that you can use in tests, homework and more in Data Structures
-including:
+This is a library with a ton of functions in C# that you can use in tests, homework, and more in Data Structures, including:
 - Queues
 - Nodes
 - Binary Trees
 
-## How to download
-<a href="https://raw.githubusercontent.com/TheMexicanMoose/C-Comp-Science-Israel-Helper-/main/TestLib/TestLib/bin/Debug/net9.0/TestLib.dll" download>TestLib.dll</a>
+## Download and Use
+
+1. **Download the DLL**  
+   Go to the [releases page](https://github.com/TheMexicanMoose/C-Comp-Science-Israel-Helper-/releases/tag/v1.0) and download `TestLib.dll`.
+
+2. **Add the DLL to your project**
+    - Open your C# project in Visual Studio or Rider.
+    - Right-click on **References** (or **Dependencies**) in the Solution Explorer.
+    - Select **Reference…** → **Add From** → find and select `TestLib.dll`. 
+
+## Important To Know
+all the functions are open source here, you can check the code and copy it for your test as helper functions, but in homework or such you are more than welcome to use
+`TestLib.dll`.
+
+## How To Use
+
+
+
+
